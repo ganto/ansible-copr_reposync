@@ -1,0 +1,50 @@
+---
+
+# List of packages to be installed
+copr_reposync_packages:
+  - dnf-plugins-core
+  - createrepo_c
+
+# COPR repository name.
+copr_reposync_name: ''
+
+# Base directory for COPR reposync.
+copr_reposync_base: /var/www/localhost/htdocs/
+
+# Create SRPM upload directory for COPR.
+copr_reposync_upload: True
+
+# Account name owning the upload directory.
+copr_reposync_upload_owner: reposync
+
+# Create reposync mirror of COPR repository.
+copr_reposync_mirror: True
+
+# Account name owning the mirror directory and synchronization jobs.
+copr_reposync_mirror_owner: reposync
+
+# Service name for synchronization systemd units.
+copr_reposync_mirror_service: reposync
+
+# List of default distributions considered for repository synchronization.
+copr_reposync_default_distributions:
+  - fedora
+  - epel
+
+# Dictionary of distributions with their repository releases that should by
+# synchronized by default.
+copr_reposync_default_releases:
+  fedora:
+    - 30
+    - 31
+  epel:
+    - 7
+    - 8
+
+# Dictionary of distributions with their supported architectures that should be
+# synchronized by default.
+copr_reposync_default_archs:
+  fedora:
+    - x86_64
+  epel:
+    - x86_64

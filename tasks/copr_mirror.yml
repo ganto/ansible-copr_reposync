@@ -1,0 +1,24 @@
+---
+
+- name: COPR mirror path
+  file:
+    path: '{{ copr_reposync_base }}/mirror'
+    state: directory
+    mode: 0755
+    owner: '{{ copr_reposync_mirror_owner }}'
+    group: '{{ copr_reposync_mirror_owner }}'
+
+#    - name: Define generic createrepo systemd service
+#      template:
+#        src: '../templates/copr_reposync_createrepo@.service.j2'
+#        dest: '/etc/systemd/system/createrepo@.service'
+#        owner: root
+#        group: root
+#        mode: '0644'
+#      register: copr_reposync_register_service
+
+- name: Include tasks for distribution mirror
+  include_tasks: distribution.yml
+  loop: '{{ copr_reposync_distributions.split(",") }}'
+  loop_control:
+    loop_var: copr_reposync_include_distribution

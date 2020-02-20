@@ -1,0 +1,25 @@
+---
+
+- name: Install required packages
+  package:
+    name: "{{ copr_reposync_packages }}"
+    state: present
+
+- name: Local reposync base path
+  file:
+    path: '{{ copr_reposync_base }}'
+    state: directory
+    mode: 0755
+
+- name: Local SRPM upload path
+  file:
+    path: '{{ copr_reposync_base }}/upload/{{ copr_reposync_name }}'
+    state: directory
+    owner: '{{ copr_reposync_upload_owner }}'
+    group: '{{ copr_reposync_upload_owner }}'
+    mode: 0755
+  when: copr_reposync_upload | bool
+
+- name: Include tasks to setup COPR mirror
+  include_tasks: copr_mirror.yml
+  when: copr_reposync_mirror | bool

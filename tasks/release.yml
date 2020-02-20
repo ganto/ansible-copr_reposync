@@ -1,0 +1,61 @@
+---
+# copr_reposync_include_release[0] = version
+# copr_reposync_include_release[1] = arch
+
+- name: '{{ copr_reposync_include_distribution }}-{{ copr_reposync_include_release[0] }}-{{ copr_reposync_include_release[1] }} - Set repository fact'
+  set_fact:
+     copr_reposync_fact_repo: '{{ copr_reposync_include_distribution }}-{{ copr_reposync_include_release[0] }}-{{ copr_reposync_include_release[1] }}'
+
+- name: '{{ copr_reposync_fact_repo }} - Set service name fact'
+  set_fact:
+     copr_reposync_fact_service: '{{ copr_reposync_mirror_service }}@{{ (copr_reposync_name.split("-"))[1:] | join("-") }}-{{ copr_reposync_fact_repo }}'
+
+- name: '{{ copr_reposync_fact_repo }} - Create systemd service drop-in directory'
+  file:
+     path: '/etc/systemd/system/{{ copr_reposync_fact_service }}.service.d'
+     state: directory
+     mode: 0755
+     owner: root
+     group: root
+
+- name: '{{ copr_reposync_fact_repo }} - Create systemd service configuration'
+  lineinfile:
+    path: '/etc/systemd/system/{{ copr_reposync_fact_service }}.service.d/override.conf'
+    regexp: '^{{ item }}$'
+    line: '{{ item }}'
+    create: yes
+  with_items:
+    - '[Service]'
+    - 'Environment="REPOSYNC_REPO={{ copr_reposync_name }}"'
+    - 'Environment="REPOSYNC_URL=https://copr-be.cloud.fedoraproject.org/results/{{ copr_reposync_name | replace("-", "/") }}/{{ copr_reposync_fact_repo }}/"'
+    - 'Environment="REPOSYNC_PATH={{ copr_reposync_base }}/mirror/{{ copr_reposync_include_distribution }}/{{ copr_reposync_include_release[0] }}/{{ copr_reposync_include_release[1] }}"'
+  register: copr_reposync_register_service
+
+- name: '{{ copr_reposync_fact_repo }} - Define systemd service'
+  file:
+    path: '/etc/systemd/system/{{ copr_reposync_fact_service }}.service'
+    src: '{{ copr_reposync_mirror_service }}@.service'
+    state: link
+
+- name: '{{ copr_reposync_fact_repo }} - Reload systemd'
+  command: systemctl daemon-reload
+  when: copr_reposync_register_service is changed
+
+- name: '{{ copr_reposync_fact_repo }} - Execute systemd service'
+  systemd:
+    name: '{{ copr_reposync_fact_service }}'
+    state: started
+    enabled: no
+  when: copr_reposync_register_service is changed
+
+- name: '{{ copr_reposync_fact_repo }} - Define systemd timer'
+  file:
+    path: '/etc/systemd/system/{{ copr_reposync_fact_service }}.timer'
+    src: '{{ copr_reposync_mirror_service }}@.timer'
+    state: link
+
+- name: '{{ copr_reposync_fact_repo }} - Enable systemd timer'
+  systemd:
+    name: '{{ copr_reposync_fact_service }}.timer'
+    state: started
+    enabled: yes
