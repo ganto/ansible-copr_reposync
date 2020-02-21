@@ -5,21 +5,46 @@
     name: "{{ copr_reposync_packages }}"
     state: present
 
-- name: Local reposync base path
+- name: Reposync user account
+  user:
+    name: "{{ copr_reposync_owner }}"
+    home: "{{ copr_reposync_path }}"
+    system: yes
+    shell: /sbin/nologin
+
+- name: Local path to store reposync mirrors
   file:
-    path: '{{ copr_reposync_base }}'
+    path: '{{ copr_reposync_path }}'
     state: directory
     mode: 0755
+    owner: '{{ copr_reposync_owner }}'
+    group: '{{ copr_reposync_owner }}'
 
-- name: Local SRPM upload path
-  file:
-    path: '{{ copr_reposync_base }}/upload/{{ copr_reposync_name }}'
-    state: directory
-    owner: '{{ copr_reposync_upload_owner }}'
-    group: '{{ copr_reposync_upload_owner }}'
-    mode: 0755
-  when: copr_reposync_upload | bool
+- name: Reposync systemd service unit
+  template:
+    src: reposync@.service.j2
+    dest: /etc/systemd/system/reposync@.service
+    mode: 0644
+    owner: root
+    group: root
 
-- name: Include tasks to setup COPR mirror
-  include_tasks: copr_mirror.yml
-  when: copr_reposync_mirror | bool
+- name: Reposync systemd timer unit
+  template:
+    src: reposync@.timer.j2
+    dest: /etc/systemd/system/reposync@.timer
+    mode: 0644
+    owner: root
+    group: root
+  when: copr_reposync_timer | bool
+
+- name: Set distributions fact
+  set_fact:
+    copr_reposync_fact_distributions: "{{ copr_reposync_distributions
+                                          if (copr_reposync_distributions | length > 0)
+                                          else copr_reposync_default_distributions }}"
+
+- name: Include tasks for distribution repository setup
+  include_tasks: distribution.yml
+  loop: '{{ copr_reposync_fact_distributions | list }}'
+  loop_control:
+    loop_var: copr_reposync_include_distribution

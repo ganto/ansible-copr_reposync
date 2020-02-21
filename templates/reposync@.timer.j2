@@ -1,0 +1,11 @@
+[Unit]
+Description=Run COPR mirror synchronization
+
+[Timer]
+Unit={{ copr_reposync_service_name }}@%i.service
+{% for _key, _value in copr_reposync_timer_config.items() %}
+{{ _key }}={{ _value }}
+{% endfor %}
+
+[Install]
+WantedBy=timers.target

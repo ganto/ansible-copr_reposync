@@ -1,0 +1,10 @@
+[Unit]
+Description=Synchronize COPR package repository
+
+[Service]
+Type=oneshot
+User={{ copr_reposync_owner }}
+ExecStartPre=/bin/echo /usr/bin/reposync --repofrompath ${REPOSYNC_REPO},${REPOSYNC_URL} --repo ${REPOSYNC_REPO} --download-path ${REPOSYNC_PATH}
+ExecStart=/usr/bin/reposync --repofrompath ${REPOSYNC_REPO},${REPOSYNC_URL} --repo ${REPOSYNC_REPO} --download-path ${REPOSYNC_PATH}
+ExecStartPost=/bin/echo /usr/bin/createrepo_c --update ${REPOSYNC_PATH}/${REPOSYNC_REPO}
+ExecStartPost=/usr/bin/createrepo_c --update ${REPOSYNC_PATH}/${REPOSYNC_REPO}

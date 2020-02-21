@@ -1,7 +1,9 @@
 ---
 
-- name: '{{ copr_reposync_include_distribution }} - Include tasks for release architectures'
-  include_tasks: release.yml
-  loop: '{{ copr_reposync_default_releases[copr_reposync_include_distribution] | product(copr_reposync_default_archs[copr_reposync_include_distribution]) | list }}'
+- name: '{{ copr_reposync_include_distribution }} - Include tasks for setting up specific repositories'
+  include_tasks: reposync_service.yml
+  loop: '{{ copr_reposync_default_releases[copr_reposync_include_distribution]
+            | product(copr_reposync_default_archs[copr_reposync_include_distribution])
+            | list }}'
   loop_control:
-    loop_var: copr_reposync_include_release
+    loop_var: copr_reposync_include_repo

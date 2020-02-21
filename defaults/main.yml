@@ -5,31 +5,44 @@ copr_reposync_packages:
   - dnf-plugins-core
   - createrepo_c
 
-# COPR repository name.
+# COPR repository name (e.g. ganto/lxc3)
 copr_reposync_name: ''
 
-# Base directory for COPR reposync.
-copr_reposync_base: /var/www/localhost/htdocs/
+# COPR repository URL.
+copr_reposync_url: 'https://copr-be.cloud.fedoraproject.org/results/{{ copr_reposync_name }}'
 
-# Create SRPM upload directory for COPR.
-copr_reposync_upload: True
-
-# Account name owning the upload directory.
-copr_reposync_upload_owner: reposync
-
-# Create reposync mirror of COPR repository.
-copr_reposync_mirror: True
+# Base directory for COPR reposync mirrors.
+copr_reposync_path: /var/www/localhost/htdocs/
 
 # Account name owning the mirror directory and synchronization jobs.
-copr_reposync_mirror_owner: reposync
+copr_reposync_owner: reposync
 
-# Service name for synchronization systemd units.
-copr_reposync_mirror_service: reposync
+# Service name for reposync systemd units.
+copr_reposync_service_name: reposync
+
+# Always execute repository synchronization when executing the playbook.
+# Otherwise the repository is only synchronized if the configuration is changed
+# or via systemd timer.
+copr_reposync_exec_sync: False
+
+# Create systemd timer for scheduled synchronization of COPR repository
+copr_reposync_timer: True
+
+# Configuration for systemd timer. By default it will synchronize every 6 hours
+# within a 3 hour random delay window.
+copr_reposync_timer_config:
+  'OnCalendar': '*-*-* 0,6,12,18:0:0'
+  'RandomizeDelaySec': 10800
 
 # List of default distributions considered for repository synchronization.
+# Must contain distributions supported by COPR, e.g. `fedora`, `epel`, `mageia`
 copr_reposync_default_distributions:
   - fedora
   - epel
+
+# List of distribution that are considered when constructing repository names.
+# If this list is empty, the `copr_reposync_default_distributions` is used.
+copr_reposync_distributions: []
 
 # Dictionary of distributions with their repository releases that should by
 # synchronized by default.
