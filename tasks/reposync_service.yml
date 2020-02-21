@@ -53,3 +53,20 @@
 - name: '{{ copr_reposync_fact_repo }} - Include tasks to setup systemd timer'
   include_tasks: reposync_timer.yml
   when: copr_reposync_timer | bool
+
+- name: '{{ copr_reposync_fact_repo }} - Ensure repository directory exists'
+  file:
+    path: '{{ copr_reposync_fact_path }}/{{ copr_reposync_fact_name }}'
+    state: directory
+    mode: 0755
+    owner: '{{ copr_reposync_owner }}'
+    group: '{{ copr_reposync_owner }}'
+
+- name: '{{ copr_reposync_fact_repo }} - Download repository GPG public key'
+  become: True
+  become_user: '{{ copr_reposync_owner }}'
+  get_url:
+    url: '{{ copr_reposync_gpg_url }}'
+    dest: '{{ copr_reposync_fact_path }}/{{ copr_reposync_fact_name }}/'
+    mode: 0644
+  when: copr_reposync_gpg | bool

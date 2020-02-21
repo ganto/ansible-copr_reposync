@@ -11,6 +11,12 @@ copr_reposync_name: ''
 # COPR repository URL.
 copr_reposync_url: 'https://copr-be.cloud.fedoraproject.org/results/{{ copr_reposync_name }}'
 
+# Download and store GPG public key for verifying the packages
+copr_reposync_gpg: True
+
+# URL to the repository GPG public key
+copr_reposync_gpg_url: '{{ copr_reposync_url }}/pubkey.gpg'
+
 # Base directory for COPR reposync mirrors.
 copr_reposync_path: /var/www/localhost/htdocs/
 
