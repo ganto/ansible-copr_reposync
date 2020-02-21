@@ -8,7 +8,7 @@
 - name: Reposync user account
   user:
     name: "{{ copr_reposync_owner }}"
-    home: "{{ copr_reposync_path }}"
+    home: "{{ copr_reposync_path.rstrip('/') }}"
     system: yes
     shell: /sbin/nologin
 
