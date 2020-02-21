@@ -6,9 +6,11 @@
   set_fact:
      copr_reposync_fact_repo: '{{ copr_reposync_include_distribution }}-{{ copr_reposync_include_repo[0] }}-{{ copr_reposync_include_repo[1] }}'
 
-- name: '{{ copr_reposync_fact_repo }} - Set service name fact'
+- name: '{{ copr_reposync_fact_repo }} - Set setup facts derrived from repository'
   set_fact:
-     copr_reposync_fact_service: '{{ copr_reposync_service_name }}@{{ (copr_reposync_name.split("/"))[1] }}-{{ copr_reposync_fact_repo }}'
+    copr_reposync_fact_name: '{{ copr_reposync_name | replace("/", "-") }}'
+    copr_reposync_fact_service: '{{ copr_reposync_service_name }}@{{ (copr_reposync_name.split("/"))[1] }}-{{ copr_reposync_fact_repo }}'
+    copr_reposync_fact_path: '{{ copr_reposync_path.rstrip("/") }}/{{ copr_reposync_fact_repo | replace("-", "/") }}'
 
 - name: '{{ copr_reposync_fact_repo }} - Create systemd service drop-in directory'
   file:
