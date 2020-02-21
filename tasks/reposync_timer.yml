@@ -13,4 +13,4 @@
     state: started
     enabled: yes
     daemon_reload: "{{ copr_reposync_register_timer is changed }}"
-  when: ansible_service_mgr == 'systemd'
+  when: (ansible_service_mgr | default('systemd')) == 'systemd'

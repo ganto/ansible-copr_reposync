@@ -36,7 +36,7 @@
 - name: '{{ copr_reposync_fact_repo }} - Reload systemd'
   systemd:
     daemon_reload: '{{ copr_reposync_register_service is changed }}'
-  when: ansible_service_mgr == 'systemd'
+  when: (ansible_service_mgr | default('systemd')) == 'systemd'
 
 - name: '{{ copr_reposync_fact_repo }} - Execute systemd service'
   systemd:
@@ -46,7 +46,7 @@
   when:
     - (copr_reposync_register_service is changed) or
       (copr_reposync_exec_sync | bool)
-    - (ansible_service_mgr == 'systemd')
+    - (ansible_service_mgr | default('systemd')) == 'systemd'
 
 - name: '{{ copr_reposync_fact_repo }} - Include tasks to setup systemd timer'
   include_tasks: reposync_timer.yml
