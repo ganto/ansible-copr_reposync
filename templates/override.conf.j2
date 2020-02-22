@@ -1,4 +1,4 @@
 [Service]
-Environment="REPOSYNC_REPO={{ copr_reposync_name | replace('/', '-') }}"
+Environment="REPOSYNC_REPO={{ copr_reposync_fact_repo }}"
 Environment="REPOSYNC_URL={{ copr_reposync_url }}/{{ copr_reposync_fact_repo }}/"
-Environment="REPOSYNC_PATH={{ copr_reposync_path.rstrip('/') }}/{{ copr_reposync_include_distribution }}/{{ copr_reposync_include_repo[0] }}/{{ copr_reposync_include_repo[1] }}"
+Environment="REPOSYNC_PATH={{ copr_reposync_repo_path }}"

@@ -18,7 +18,10 @@ copr_reposync_gpg: True
 copr_reposync_gpg_url: '{{ copr_reposync_url }}/pubkey.gpg'
 
 # Base directory for COPR reposync mirrors.
-copr_reposync_path: /var/www/localhost/htdocs/
+copr_reposync_path: /var/www/localhost/htdocs
+
+# Local directory for storing the repositories.
+copr_reposync_repo_path: '{{ copr_reposync_path }}/{{ copr_reposync_name }}'
 
 # Account name owning the mirror directory and synchronization jobs.
 copr_reposync_owner: reposync

@@ -17,6 +17,12 @@
     path: '{{ copr_reposync_path }}'
     state: directory
     mode: 0755
+
+- name: Repository directory and permissions
+  file:
+    path: '{{ copr_reposync_repo_path }}'
+    state: directory
+    mode: 0755
     owner: '{{ copr_reposync_owner }}'
     group: '{{ copr_reposync_owner }}'
 
@@ -37,7 +43,7 @@
     group: root
   when: copr_reposync_timer | bool
 
-- name: Set distributions fact
+- name: Set some repository setup runtime facts
   set_fact:
     copr_reposync_fact_distributions: "{{ copr_reposync_distributions
                                           if (copr_reposync_distributions | length > 0)
