@@ -1,4 +1,4 @@
-Ansible Role: ganto.copr-reposync
+Ansible Role: ganto.copr_reposync
 =================================
 
 Setup a local package mirror of a [COPR](https://copr.fedorainfracloud.org/coprs/)
@@ -21,7 +21,7 @@ Getting Started
 
 1. Download this role via:
 
-        $ ansible-galaxy install ganto.copr-reposync
+        $ ansible-galaxy install ganto.copr_reposync
 
 
 2. Create a minimal playbook (e.g. called `reposync.yml`) to run this role:
@@ -37,7 +37,7 @@ Getting Started
               private: no
           
           roles:
-            - name: ganto.copr-reposync
+            - name: ganto.copr_reposync
 
 3. Run this role (for example against the [ganto/jo](https://copr.fedorainfracloud.org/coprs/ganto/jo/)
    repository):
@@ -66,4 +66,4 @@ License
 Author Information
 ------------------
 
-The `ganto.copr-reposync` role was written by Reto Gantenbein | [e-mail](mailto:reto.gantenbein@linuxmonk.ch) | [GitHub](https://github.com/ganto)
+The [ganto.copr_reposync](https://galaxy.ansible.com/ganto/copr_reposync) role was written by Reto Gantenbein | [e-mail](mailto:reto.gantenbein@linuxmonk.ch) | [GitHub](https://github.com/ganto)
