@@ -1,19 +1,15 @@
 Ansible Role: ganto.copr_reposync
 =================================
 
-Setup a local package mirror of a [COPR](https://copr.fedorainfracloud.org/coprs/)
-repository which is able to provide packages that will be deleted by COPR
-over time. It can then be served to other machines with Web server.
+Setup a local package mirror of a [COPR](https://copr.fedorainfracloud.org/coprs/) repository which is able to provide packages that will be deleted by COPR over time. It can then be served to other machines with Web server.
 
-A synchronization job will be created as a 'oneshot' systemd service which
-can be executed through a (optional) systemd timer.
+A synchronization job will be created as a 'oneshot' systemd service which can be executed through a (optional) systemd timer.
 
 
 Requirements
 ------------
 
-This role must run on a Linux host that uses systemd and has the `dnf-plugins-core`
-and `createrepo_c` packages available which is typically Fedora or CentOS 8.
+This role must run on a Linux host that uses systemd and has the `dnf-plugins-core` and `createrepo_c` packages available which is typically Fedora or CentOS 8.
 
 
 Getting Started
@@ -39,8 +35,7 @@ Getting Started
           roles:
             - name: ganto.copr_reposync
 
-3. Run this role (for example against the [ganto/jo](https://copr.fedorainfracloud.org/coprs/ganto/jo/)
-   repository):
+3. Run this role (for example against the [ganto/jo](https://copr.fedorainfracloud.org/coprs/ganto/jo/) repository):
 
         $ ansible-playbook reposync.yml
         Enter COPR repository name (e.g. ganto/jo): ganto/jo
@@ -48,14 +43,9 @@ Getting Started
         PLAY [Setup COPR repository mirror] ************************
         ...
 
-After playbook execution completed there will be a directory `/var/www/html/ganto/jo`
-that includes the package repositories for the most common distributions and
-releases e.g. `epel-7-x86_64` with all RPMs that are part of this repository
-including newly generated repository metadata so that this folder than be
-easily used as a yum/dnf repository by itself.
+After playbook execution completed there will be a directory `/var/www/html/ganto/jo` that includes the package repositories for the most common distributions and releases e.g. `epel-7-x86_64` with all RPMs that are part of this repository including newly generated repository metadata so that this folder than be easily used as a yum/dnf repository by itself.
 
-There is also a systemd timer that will regularly synchronize new package builds
-from COPR and regenerate the repository metadata.
+There is also a systemd timer that will regularly synchronize new package builds from COPR and regenerate the repository metadata.
 
 
 License
