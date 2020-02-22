@@ -7,3 +7,12 @@
             | list }}'
   loop_control:
     loop_var: copr_reposync_include_repo
+
+- name: '{{ copr_reposync_include_distribution }} - Generate repo file for COPR mirror'
+  become: True
+  become_user: '{{ copr_reposync_owner }}'
+  template:
+    src: mirror.repo.j2
+    dest: '{{ copr_reposync_repo_path }}/{{ copr_reposync_name | replace("/", "-") }}-{{ copr_reposync_include_distribution }}.repo'
+    mode: 0644
+  when: copr_reposync_repofile | bool

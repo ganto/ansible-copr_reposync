@@ -70,3 +70,9 @@ copr_reposync_default_archs:
     - x86_64
   epel:
     - x86_64
+
+# Generate repo file for COPR mirror.
+copr_reposync_repofile: True
+
+# Repository URL prefix used in the repo files.
+copr_reposync_repofile_url: http://localhost/

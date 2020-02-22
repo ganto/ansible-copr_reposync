@@ -48,6 +48,22 @@ After playbook execution completed there will be a directory `/var/www/html/gant
 There is also a systemd timer that will regularly synchronize new package builds from COPR and regenerate the repository metadata.
 
 
+**Serving the COPR repository mirror**
+
+1. Install and start a Web server. E.g.:
+
+        # dnf install httpd
+        # systemctl enable --run httpd
+
+2. Download the repository file for your distribution. E.g.:
+
+        # wget -O /etc/yum.repos.d/_copr-mirror_ganto-jo.repo http://localhost/ganto/jo/ganto-jo-fedora.repo
+
+3. Now you can install every package version from the synchronized repository mirror:
+
+        # dnf install jo-1.3
+
+
 License
 -------
 
