@@ -1,4 +1,5 @@
 galaxy_info:
+  role_name: copr-reposync
   description: Setup COPR repository mirror
   author: Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
   license: GPL-3.0
