@@ -2,7 +2,7 @@
 
 # List of packages to be installed
 copr_reposync_packages:
-  - dnf-plugins-core
+  - dnf-utils
   - createrepo_c
 
 # COPR repository name (e.g. ganto/lxc3)
