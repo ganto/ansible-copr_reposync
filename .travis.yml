@@ -34,5 +34,5 @@ script:
   # Ansible linter
   - ansible-lint -v --exclude='../ganto.copr_reposync'
 
-#notifications:
-#  webhooks: https://galaxy.ansible.com/api/v1/notifications/
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/
