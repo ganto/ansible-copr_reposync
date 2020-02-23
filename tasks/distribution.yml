@@ -5,10 +5,15 @@
     msg: 'No releases defined in copr_reposync_releases for {{ copr_reposync_include_distribution }}'
   when: (not copr_reposync_include_distribution in copr_reposync_releases.keys())
 
+- name: '{{ copr_reposync_include_distribution }} - Validate architecture definitions'
+  fail:
+    msg: 'No architectures defined in copr_reposync_archs for {{ copr_reposync_include_distribution }}'
+  when: (not copr_reposync_include_distribution in copr_reposync_archs.keys())
+
 - name: '{{ copr_reposync_include_distribution }} - Include tasks for setting up specific repositories'
   include_tasks: reposync_service.yml
   loop: '{{ copr_reposync_releases[copr_reposync_include_distribution]
-            | product(copr_reposync_default_archs[copr_reposync_include_distribution])
+            | product(copr_reposync_archs[copr_reposync_include_distribution])
             | list }}'
   loop_control:
     loop_var: copr_reposync_include_repo

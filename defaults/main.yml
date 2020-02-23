@@ -27,9 +27,10 @@ copr_reposync_releases:
     - 7
     - 8
 
-# Dictionary of distributions with their supported architectures that should be
-# synchronized by default.
-copr_reposync_default_archs:
+# Dictionary of distributions with their supported architectures used for
+# generating the list of repositories to be mirrored. Must contain architectures
+# for which builds are enabled in the COPR configuration.
+copr_reposync_archs:
   fedora:
     - x86_64
   epel:
