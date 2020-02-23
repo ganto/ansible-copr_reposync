@@ -9,17 +9,12 @@ copr_reposync_name: ''
 # COPR repository URL
 copr_reposync_url: 'https://copr-be.cloud.fedoraproject.org/results/{{ copr_reposync_name }}'
 
-# List of default distributions considered for repository synchronization.
-# Must contain distributions for which builds are enabled in your COPR
-# configuration, e.g. `fedora`, `epel`, `mageia`
-copr_reposync_default_distributions:
+# List of distribution used for generating the list of repositories to
+# be mirrored. Must contain distributions for which builds are enabled in the
+# COPR configuration, e.g. `fedora`, `epel`, `mageia`
+copr_reposync_distributions:
   - fedora
   - epel
-
-# List of distribution used for generating the list of repositories to
-# be mirrored. If this list is empty, the value of
-# `copr_reposync_default_distributions` will be used.
-copr_reposync_distributions: []
 
 # Dictionary of distributions with their repository releases that should by
 # synchronized by default.
