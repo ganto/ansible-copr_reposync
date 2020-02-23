@@ -16,9 +16,10 @@ copr_reposync_distributions:
   - fedora
   - epel
 
-# Dictionary of distributions with their repository releases that should by
-# synchronized by default.
-copr_reposync_default_releases:
+# Dictionary of distributions with their package repository releases used for
+# generating the list of repositories to be mirrored. Must contain releases for
+# which builds are enabled in the COPR configuration.
+copr_reposync_releases:
   fedora:
     - 30
     - 31
