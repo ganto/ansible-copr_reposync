@@ -43,14 +43,8 @@
     group: root
   when: copr_reposync_timer | bool
 
-- name: Set some repository setup runtime facts
-  set_fact:
-    copr_reposync_fact_distributions: "{{ copr_reposync_distributions
-                                          if (copr_reposync_distributions | length > 0)
-                                          else copr_reposync_default_distributions }}"
-
 - name: Include tasks for distribution repository setup
   include_tasks: distribution.yml
-  loop: '{{ copr_reposync_fact_distributions | list }}'
+  loop: '{{ copr_reposync_distributions | list }}'
   loop_control:
     loop_var: copr_reposync_include_distribution
