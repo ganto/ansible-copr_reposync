@@ -1,56 +1,24 @@
 ---
+#
+# COPR Repository Configuration
+#
 
-# List of packages to be installed
-copr_reposync_packages:
-  - dnf-utils
-  - createrepo_c
-
-# COPR repository name (e.g. ganto/lxc3)
+# COPR repository name (e.g. ganto/jo)
 copr_reposync_name: ''
 
-# COPR repository URL.
+# COPR repository URL
 copr_reposync_url: 'https://copr-be.cloud.fedoraproject.org/results/{{ copr_reposync_name }}'
 
-# Download and store GPG public key for verifying the packages
-copr_reposync_gpg: True
-
-# URL to the repository GPG public key
-copr_reposync_gpg_url: '{{ copr_reposync_url }}/pubkey.gpg'
-
-# Base directory for COPR reposync mirrors.
-copr_reposync_path: /var/www/html
-
-# Local directory for storing the repositories.
-copr_reposync_repo_path: '{{ copr_reposync_path }}/{{ copr_reposync_name }}'
-
-# Account name owning the mirror directory and synchronization jobs.
-copr_reposync_owner: reposync
-
-# Service name for reposync systemd units.
-copr_reposync_service_name: reposync
-
-# Always execute repository synchronization when executing the playbook.
-# Otherwise the repository is only synchronized if the configuration is changed
-# or via systemd timer.
-copr_reposync_exec_sync: False
-
-# Create systemd timer for scheduled synchronization of COPR repository
-copr_reposync_timer: True
-
-# Configuration for systemd timer. By default it will synchronize every 6 hours
-# within a 3 hour random delay window.
-copr_reposync_timer_config:
-  'OnCalendar': '*-*-* 0,6,12,18:0:0'
-  'RandomizeDelaySec': 10800
-
 # List of default distributions considered for repository synchronization.
-# Must contain distributions supported by COPR, e.g. `fedora`, `epel`, `mageia`
+# Must contain distributions for which builds are enabled in your COPR
+# configuration, e.g. `fedora`, `epel`, `mageia`
 copr_reposync_default_distributions:
   - fedora
   - epel
 
-# List of distribution that are considered when constructing repository names.
-# If this list is empty, the `copr_reposync_default_distributions` is used.
+# List of distribution used for generating the list of repositories to
+# be mirrored. If this list is empty, the value of
+# `copr_reposync_default_distributions` will be used.
 copr_reposync_distributions: []
 
 # Dictionary of distributions with their repository releases that should by
@@ -71,8 +39,60 @@ copr_reposync_default_archs:
   epel:
     - x86_64
 
-# Generate repo file for COPR mirror.
+
+#
+# Local mirror configuration
+#
+
+# Base directory for COPR reposync mirrors
+copr_reposync_path: /var/www/html
+
+# Local directory for storing the individual distribution repositories.
+copr_reposync_repo_path: '{{ copr_reposync_path }}/{{ copr_reposync_name }}'
+
+# Account name owning the mirror directory and synchronization jobs. If the
+# account doesn't exist yet, it will be created.
+copr_reposync_owner: reposync
+
+# List of packages to be installed
+copr_reposync_packages:
+  - dnf-utils
+  - createrepo_c
+
+# Service name for reposync systemd units
+copr_reposync_service_name: reposync
+
+# Each role execution will trigger the synchronization of the package repository
+# mirrors. By default the package repositories are only synchronized on
+# configuration change or via systemd timer.
+copr_reposync_exec_sync: False
+
+# Create and enable a systemd timer to schedule the package repository
+# synchronization.
+copr_reposync_timer: True
+
+# Configuration for systemd timer. By default it will synchronize every 6 hours
+# within a 3 hour random delay window.
+#
+# For more information see `man 5 systemd.timer`.
+copr_reposync_timer_config:
+  'OnCalendar': '*-*-* 0,6,12,18:0:0'
+  'RandomizeDelaySec': 10800
+
+
+#
+# Local package repository configuration
+#
+
+# Generate repo file for COPR mirror
 copr_reposync_repofile: True
 
-# Repository URL prefix used in the repo files.
+# Repository URL prefix used in the repo files
 copr_reposync_repofile_url: http://localhost/
+
+# Download and store GPG public key for verifying the packages. This will also
+# enable GPG package validation in the repo file.
+copr_reposync_gpg: True
+
+# URL to the repository GPG public key
+copr_reposync_gpg_url: '{{ copr_reposync_url }}/pubkey.gpg'
