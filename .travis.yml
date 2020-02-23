@@ -13,7 +13,7 @@ addons:
 
 install:
   # Install ansible
-  - pip install ansible yamllint
+  - pip install ansible yamllint ansible-lint
 
   # Check ansible version
   - ansible --version
@@ -30,6 +30,9 @@ script:
 
   # YAML syntax linter
   - yamllint .
+
+  # Ansible linter
+  - ansible-lint -v --exclude='../ganto.copr_reposync'
 
 #notifications:
 #  webhooks: https://galaxy.ansible.com/api/v1/notifications/
