@@ -43,8 +43,28 @@
     group: root
   when: copr_reposync_timer | bool
 
-- name: Include tasks for distribution repository setup
-  include_tasks: distribution.yml
-  loop: '{{ copr_reposync_distributions | list }}'
+- name: Include tasks for repository mirror setup
+  include_tasks: reposync_service.yml
+  loop: '{{ copr_reposync_repos | list }}'
   loop_control:
-    loop_var: copr_reposync_include_distribution
+    loop_var: copr_reposync_include_repo
+
+- name: Download COPR repository GPG public key
+  become: True
+  become_user: '{{ copr_reposync_owner }}'
+  get_url:
+    url: '{{ copr_reposync_gpg_url }}'
+    dest: '{{ copr_reposync_repo_path }}/'
+    mode: 0644
+  when: copr_reposync_gpg | bool
+
+- name: Generate repo files for COPR mirror repositories
+  become: True
+  become_user: '{{ copr_reposync_owner }}'
+  template:
+    src: mirror.repo.j2
+    dest: '{{ copr_reposync_repo_path }}/{{ copr_reposync_name | replace("/", "-") }}-{{ item }}.repo'
+    mode: 0644
+  when: copr_reposync_repofile | bool
+  # get list of unique distributions from `copr_reposync_repos`
+  with_items: '{{ lookup("template", "lookup/distributions.j2") }}'

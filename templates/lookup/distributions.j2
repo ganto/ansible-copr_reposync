@@ -1,0 +1,12 @@
+{#
+ # This lookup template will generate a list of unique distributions from the
+ # list of repository "triplets" <distribution>-<release>-<arch>
+ #}
+{% set _distributions = [] %}
+{% for _repo in (copr_reposync_repos | from_yaml) %}
+{%   set _distro = _repo.split('-')[0] %}
+{%   if _distro not in _distributions %}
+{%     set _ = _distributions.append(_distro) %}
+{%   endif %}
+{% endfor %}
+{{ _distributions }}
