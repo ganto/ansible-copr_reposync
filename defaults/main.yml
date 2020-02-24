@@ -9,6 +9,12 @@ copr_reposync_name: ''
 # COPR repository URL
 copr_reposync_url: 'https://copr-be.cloud.fedoraproject.org/results/{{ copr_reposync_name }}'
 
+# List of distribution/release/arch repository triplets that will be
+# synchronized. By default this will be generated from:
+# `copr_reposync_distributions`, `copr_reposync_releases` and
+# `copr_reposync_archs`
+copr_reposync_repos: '{{ lookup("template", "lookup/repos.j2") }}'
+
 # List of distribution used for generating the list of repositories to
 # be mirrored. Must contain distributions for which builds are enabled in the
 # COPR configuration, e.g. `fedora`, `epel`, `mageia`

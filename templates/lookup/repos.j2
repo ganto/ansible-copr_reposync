@@ -1,0 +1,18 @@
+{#
+ # This lookup template will generate a list of repository "triplets"
+ # <distribution>-<release>-<arch> (e.g. epel-8-x86_64) from the content
+ # of `copr_reposync_distributions`, `copr_reposync_releases` and
+ # `copr_reposync_archs`.
+ #}
+{% set _repos = [] %}
+{% for _distribution in (copr_reposync_distributions | from_yaml) %}
+{%   if _distribution in (copr_reposync_releases | from_yaml).keys() and
+        _distribution in (copr_reposync_archs | from_yaml).keys() %}
+{%     for _release in (copr_reposync_releases | from_yaml)[_distribution] %}
+{%       for _arch in (copr_reposync_archs | from_yaml)[_distribution] %}
+{%         set _ = _repos.append(_distribution + '-' + (_release | string) + '-' + _arch) %}
+{%       endfor %}
+{%     endfor %}
+{%   endif %}
+{% endfor %}
+{{ _repos }}
