@@ -1,12 +1,12 @@
 ---
 
-- name: '{{ copr_reposync_include_repo }} - Set setup facts derrived from repository'
+- name: '{{ copr_reposync_include_repo }} - Set systemd unit name fact'
   set_fact:
-    copr_reposync_fact_service: '{{ copr_reposync_service_name }}@{{ (copr_reposync_name.split("/"))[1] }}-{{ copr_reposync_include_repo }}'
+    copr_reposync_fact_unit: '{{ copr_reposync_service_name }}@{{ (copr_reposync_name.split("/"))[1] }}-{{ copr_reposync_include_repo }}'
 
 - name: '{{ copr_reposync_include_repo }} - Create systemd service drop-in directory'
   file:
-     path: '/etc/systemd/system/{{ copr_reposync_fact_service }}.service.d'
+     path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service.d'
      state: directory
      mode: 0755
      owner: root
@@ -15,7 +15,7 @@
 - name: '{{ copr_reposync_include_repo }} - Create systemd service configuration'
   template:
     src: override.conf.j2
-    dest: '/etc/systemd/system/{{ copr_reposync_fact_service }}.service.d/override.conf'
+    dest: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service.d/override.conf'
     mode: 0644
     owner: root
     group: root
@@ -23,7 +23,7 @@
 
 - name: '{{ copr_reposync_include_repo }} - Define systemd service'
   file:
-    path: '/etc/systemd/system/{{ copr_reposync_fact_service }}.service'
+    path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service'
     src: '{{ copr_reposync_service_name }}@.service'
     state: link
 
@@ -34,7 +34,7 @@
 
 - name: '{{ copr_reposync_include_repo }} - Execute systemd service'
   systemd:
-    name: '{{ copr_reposync_fact_service }}'
+    name: '{{ copr_reposync_fact_unit }}'
     state: started
     enabled: no
   when:
