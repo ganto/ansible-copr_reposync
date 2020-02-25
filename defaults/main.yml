@@ -99,3 +99,19 @@ copr_reposync_gpg: True
 
 # URL to the repository GPG public key
 copr_reposync_gpg_url: '{{ copr_reposync_url }}/pubkey.gpg'
+
+
+#
+# Repository cleanup configuration
+#
+
+# List of distribution/release/arch repository triplets for which the COPR
+# mirror synchronization will be removed.
+#
+# IMPORTANT: If this variable is non-empty the Ansible role execution might be
+#            destructive.
+copr_reposync_remove_repos: []
+
+# Delete local mirror content when removing the repositories listed in
+# `copr_reposync_remove_repos`.
+copr_reposync_cleanup_content: True

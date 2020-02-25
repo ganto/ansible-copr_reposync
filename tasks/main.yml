@@ -45,7 +45,13 @@
 
 - name: Include tasks for repository mirror setup
   include_tasks: reposync_service.yml
-  loop: '{{ copr_reposync_repos | list }}'
+  loop: '{{ copr_reposync_repos | difference(copr_reposync_remove_repos) | list }}'
+  loop_control:
+    loop_var: copr_reposync_include_repo
+
+- name: Include tasks for repository mirror removal
+  include_tasks: reposync_removal.yml
+  loop: '{{ copr_reposync_remove_repos | list }}'
   loop_control:
     loop_var: copr_reposync_include_repo
 
