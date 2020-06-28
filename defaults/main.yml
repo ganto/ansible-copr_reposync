@@ -21,8 +21,8 @@ copr_reposync_distributions:
 # which builds are enabled in the COPR configuration.
 copr_reposync_releases:
   fedora:
-    - 30
     - 31
+    - 32
   epel:
     - 7
     - 8
