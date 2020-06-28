@@ -2,7 +2,7 @@
 
 - name: '{{ copr_reposync_include_repo }} - Set systemd unit name fact'
   set_fact:
-    copr_reposync_fact_unit: '{{ copr_reposync_service_name }}@{{ (copr_reposync_name.split("/"))[1] }}-{{ copr_reposync_include_repo }}'
+    copr_reposync_fact_unit: '{{ copr_reposync_service_name }}@{{ copr_reposync_name.replace("/", "-") }}-{{ copr_reposync_include_repo }}'
 
 - name: '{{ copr_reposync_include_repo }} - Create systemd service drop-in directory'
   file:
