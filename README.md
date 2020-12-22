@@ -1,7 +1,7 @@
 Ansible Role: ganto.copr_reposync
 =================================
 
-**Travis CI:** [![Build Status](https://travis-ci.org/ganto/ansible-copr-reposync.svg?branch=master)](https://travis-ci.org/ganto/ansible-copr-reposync)
+**Travis CI:** [![Build Status](https://travis-ci.org/ganto/ansible-copr_reposync.svg?branch=master)](https://travis-ci.org/ganto/ansible-copr_reposync)
 
 Setup a local package mirror of a [COPR](https://copr.fedorainfracloud.org/coprs/) repository which is able to provide packages that will be deleted by COPR over time. It can then be served to other machines with Web server.
 
