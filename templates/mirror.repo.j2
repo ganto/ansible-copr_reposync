@@ -1,6 +1,6 @@
 [{{ copr_reposync_name | replace('/', '-') }}-mirror]
 name=Copr mirror repo for {{ (copr_reposync_name.split('/'))[1] }} owned by {{ (copr_reposync_name.split('/'))[0] }}
-baseurl={{ copr_reposync_repofile_url.rstrip('/') }}/{{ copr_reposync_name }}/fedora-$releasever-$basearch/
+baseurl={{ copr_reposync_repofile_url.rstrip('/') }}/{{ copr_reposync_name }}/{{ item }}-$releasever-$basearch/
 {% if copr_reposync_gpg | bool %}
 gpgcheck=1
 gpgkey={{ copr_reposync_repofile_url.rstrip('/') }}/{{ copr_reposync_name }}/pubkey.gpg

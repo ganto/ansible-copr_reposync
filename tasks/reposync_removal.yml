@@ -1,0 +1,31 @@
+---
+
+- name: '{{ copr_reposync_include_repo }} - Set systemd unit name fact'
+  set_fact:
+    copr_reposync_fact_unit: '{{ copr_reposync_service_name }}@{{ (copr_reposync_name.split("/"))[1] }}-{{ copr_reposync_include_repo }}'
+
+- name: '{{ copr_reposync_include_repo }} - Stop and disable systemd units'
+  systemd:
+    name: '{{ copr_reposync_fact_unit }}.{{ item }}'
+    state: stopped
+    enabled: no
+  failed_when: False
+  with_items:
+    - timer
+    - service
+
+- name: '{{ copr_reposync_include_repo }} - Remove systemd units'
+  file:
+    path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.{{ item }}'
+    state: absent
+  with_items:
+    - timer
+    - timer.d
+    - service
+    - service.d
+
+- name: '{{ copr_reposync_include_repo }} - Delete local mirror repository'
+  file:
+    path: '{{ copr_reposync_repo_path }}/{{ copr_reposync_include_repo }}'
+    state: absent
+  when: copr_reposync_cleanup_content | bool
