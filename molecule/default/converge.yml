@@ -8,6 +8,11 @@
   vars:
     # Use https://copr.fedorainfracloud.org/coprs/ganto/jo/ for testing
     copr_reposync_name: 'ganto/jo'
+
+    # Only mirror repositories matching our distribution
+    copr_reposync_distributions:
+      - '{{ "fedora" if ansible_distribution == "Fedora" else "epel" }}'
+
     copr_reposync_packages:
       - '{{ ansible_pkg_mgr }}-utils'
       - 'createrepo_c'
