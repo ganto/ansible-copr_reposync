@@ -9,6 +9,15 @@ copr_reposync_name: ''
 # COPR repository URL
 copr_reposync_url: 'https://copr-be.cloud.fedoraproject.org/results/{{ copr_reposync_name }}'
 
+# List of <distribution>-<release>-<arch> repository triplets that will be
+# synchronized. Example: 'epel-8-x86_64'. Ensure the listed repositories are
+# actually enabled in the COPR configuration.
+#
+# By default this variable will be generated from:
+# `copr_reposync_distributions`, `copr_reposync_releases` and
+# `copr_reposync_archs`
+copr_reposync_repos: '{{ lookup("template", "lookup/repos.j2") }}'
+
 # List of distribution used for generating the list of repositories to
 # be mirrored. Must contain distributions for which builds are enabled in the
 # COPR configuration, e.g. `fedora`, `epel`, `mageia`
@@ -93,3 +102,20 @@ copr_reposync_gpg: True
 
 # URL to the repository GPG public key
 copr_reposync_gpg_url: '{{ copr_reposync_url }}/pubkey.gpg'
+
+
+#
+# Repository cleanup configuration
+#
+
+# List of <distribution>-<release>-<arch> repository triplets for which the
+# local mirror synchronization with COPR will be removed.
+# Example: 'epel-6-i386'
+#
+# IMPORTANT: If this variable is non-empty the Ansible role execution might be
+#            destructive!
+copr_reposync_remove_repos: []
+
+# Delete local mirror content when removing the repositories listed in
+# `copr_reposync_remove_repos`.
+copr_reposync_cleanup_content: True
