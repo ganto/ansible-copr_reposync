@@ -12,4 +12,4 @@
 {%     set _ = _distributions.append(_distro) %}
 {%   endif %}
 {% endfor %}
-{{ _distributions }}
+{{ _distributions | to_yaml }}

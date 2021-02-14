@@ -76,4 +76,4 @@
     mode: 0644
   when: copr_reposync_repofile | bool
   # get list of unique distributions from `copr_reposync_repos`
-  with_items: '{{ lookup("template", "lookup/distributions.j2") }}'
+  with_items: '{{ lookup("template", "lookup/distributions.j2", convert_data=false) | from_yaml }}'

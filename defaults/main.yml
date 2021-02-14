@@ -19,7 +19,7 @@ copr_reposync_url: 'https://copr-be.cloud.fedoraproject.org/results/{{ copr_repo
 # By default this variable will be generated from:
 # `copr_reposync_distributions`, `copr_reposync_releases` and
 # `copr_reposync_archs`
-copr_reposync_repos: '{{ lookup("template", "lookup/repos.j2") }}'
+copr_reposync_repos: '{{ lookup("template", "lookup/repos.j2", convert_data=false) | from_yaml }}'
 
 # List of distribution used for generating the list of repositories to
 # be mirrored. Must contain distributions for which builds are enabled in the
