@@ -48,9 +48,7 @@ jobs:
     strategy:
       matrix:
         distro:
-          #- 'centos7'
           - 'centos8'
-          #- 'fedora32'
           - 'fedora33'
 
     steps:

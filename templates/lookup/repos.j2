@@ -8,14 +8,14 @@
  # `copr_reposync_archs`.
  #}
 {% set _repos = [] %}
-{% for _distribution in (copr_reposync_distributions | from_yaml) %}
-{%   if _distribution in (copr_reposync_releases | from_yaml).keys() and
-        _distribution in (copr_reposync_archs | from_yaml).keys() %}
-{%     for _release in (copr_reposync_releases | from_yaml)[_distribution] %}
-{%       for _arch in (copr_reposync_archs | from_yaml)[_distribution] %}
+{% for _distribution in copr_reposync_distributions %}
+{%   if (_distribution in copr_reposync_releases.keys()) and
+        (_distribution in copr_reposync_archs.keys()) %}
+{%     for _release in copr_reposync_releases[_distribution] %}
+{%       for _arch in copr_reposync_archs[_distribution] %}
 {%         set _ = _repos.append(_distribution + '-' + (_release | string) + '-' + _arch) %}
 {%       endfor %}
 {%     endfor %}
 {%   endif %}
 {% endfor %}
-{{ _repos }}
+{{ _repos | to_yaml }}
