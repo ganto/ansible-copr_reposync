@@ -86,7 +86,7 @@ Sun 2020-02-23 06:00:00 UTC  5h 31min left Sun 2020-02-23 00:00:07 UTC  28min ag
 
 ## License
 
-[GPLv3](https://tldrlegal.com/license/gnu-general-public-license-v3-%28gpl-3%29)
+[Apache-2.0](https://spdx.org/licenses/Apache-2.0.html)
 
 
 ## Author Information
