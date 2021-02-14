@@ -1,0 +1,16 @@
+---
+# Copyright (C) 2021 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+# SPDX-License-Identifier: Apache-2.0
+
+- name: Converge
+  hosts: all
+
+  vars:
+    # Use https://copr.fedorainfracloud.org/coprs/ganto/jo/ for testing
+    copr_reposync_name: 'ganto/jo'
+    copr_reposync_packages:
+      - '{{ ansible_pkg_mgr }}-utils'
+      - 'createrepo_c'
+
+  roles:
+    - role: ganto.copr_reposync
