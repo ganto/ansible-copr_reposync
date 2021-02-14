@@ -1,0 +1,34 @@
+---
+# Copyright (C) 2021 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+# SPDX-License-Identifier: Apache-2.0
+
+dependency:
+  name: galaxy
+  enabled: False
+driver:
+  name: podman
+platforms:
+  - name: instance
+    image: "geerlingguy/docker-${MOLECULE_DISTRO:-centos8}-ansible:latest"
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:ro
+    privileged: True
+    pre_build_image: True
+provisioner:
+  name: ansible
+  log: True
+  options:
+    vvv: True
+  playbooks:
+    converge: ${MOLECULE_PLAYBOOK:-converge.yml}
+scenario:
+  test_sequence:
+    - syntax
+    - create
+    - prepare
+    - converge
+    # TODO: idempotence still broken
+    - verify
+    - cleanup
+    - destroy
