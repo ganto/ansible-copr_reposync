@@ -1,3 +1,7 @@
+{#
+ # Copyright (C) 2020 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+ # SPDX-License-Identifier: Apache-2.0
+ #}
 [{{ copr_reposync_name | replace('/', '-') }}-mirror]
 name=Copr mirror repo for {{ (copr_reposync_name.split('/'))[1] }} owned by {{ (copr_reposync_name.split('/'))[0] }}
 baseurl={{ copr_reposync_repofile_url.rstrip('/') }}/{{ copr_reposync_name }}/{{ item }}-$releasever-$basearch/
