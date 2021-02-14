@@ -2,6 +2,17 @@
 # Copyright (C) 2020 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
 # SPDX-License-Identifier: Apache-2.0
 
+- name: "Verify repository list for COPR '{{ copr_reposync_name }}'"
+  assert:
+    fail_msg: 'No repositories found to synchronize. Verify your distribution, release and architecture definitions.'
+    success_msg:
+      - '{{ ("Setup repository sync for: " + (copr_reposync_repos | join(", ")))
+            if (copr_reposync_repos | length > 0) else "No repositories found to setup synchronization" }}'
+      - '{{ ("Remove repository sync for: " + (copr_reposync_remove_repos | join(", ")))
+            if (copr_reposync_remove_repos | length > 0) else "No repositories found to remove synchronization" }}'
+    that: (copr_reposync_repos | length > 0) or
+          (copr_reposync_remove_repos | length > 0)
+
 - name: Install required packages
   package:
     name: "{{ copr_reposync_packages }}"
