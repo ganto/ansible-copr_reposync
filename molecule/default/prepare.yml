@@ -27,13 +27,3 @@
         enabled: true
         name: httpd.service
         state: started
-      register: prepare_httpd
-      failed_when: false
-
-    - name: Check journald logs  # noqa no-changed-when
-      shell: echo httpd.service ; systemctl cat httpd.service ; journalctl -u httpd.service ; echo httpd-init.service ; systemctl cat httpd-init.service ; journalctl -u httpd-init.service
-      register: prepare_journald
-
-    - name: Show journald logs
-      debug:
-        var: prepare_journald.stdout_lines
