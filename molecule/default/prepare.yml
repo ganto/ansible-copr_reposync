@@ -13,8 +13,17 @@
         name: httpd
         state: present
 
+    # Work-around flanky private tmp mount
+    - name: Remove PrivateTmp configuration in httpd service
+      lineinfile:
+        path: /usr/lib/systemd/system/httpd.service
+        line: 'PrivateTmp=true'
+        state: absent
+
     - name: Enable and start httpd service
       systemd:
+        # Reload modified httpd.service
+        daemon_reload: true
         enabled: true
         name: httpd.service
         state: started
