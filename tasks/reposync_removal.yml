@@ -12,19 +12,23 @@
     state: stopped
     enabled: no
   failed_when: False
-  with_items:
+  loop:
     - timer
     - service
+  loop_control:
+    label: '{{ copr_reposync_fact_unit }}.{{ item }}'
 
 - name: '{{ copr_reposync_include_repo }} - Remove systemd units'
   file:
     path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.{{ item }}'
     state: absent
-  with_items:
+  loop:
     - timer
     - timer.d
     - service
     - service.d
+  loop_control:
+    label: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.{{ item }}'
 
 - name: '{{ copr_reposync_include_repo }} - Delete local mirror repository'
   file:
