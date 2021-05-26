@@ -41,7 +41,7 @@
     enabled: no
   when:
     - (copr_reposync_register_service is changed) or
-      (copr_reposync_exec_sync | bool)
+      (copr_reposync_exec_sync | bool)  # noqa no-handler
     - (ansible_service_mgr | default('systemd')) == 'systemd'
 
 - name: '{{ copr_reposync_include_repo }} - Include tasks to setup systemd timer'
