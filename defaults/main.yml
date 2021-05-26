@@ -86,7 +86,7 @@ copr_reposync_timer: True
 # For more information see `man 5 systemd.timer`.
 copr_reposync_timer_config:
   'OnCalendar': '*-*-* 0,6,12,18:0:0'
-  'RandomizeDelaySec': 10800
+  'RandomizedDelaySec': '10800s'
 
 
 #
