@@ -46,6 +46,7 @@ jobs:
         distro:
           - 'centos8'
           - 'fedora33'
+          - 'fedora34'
 
     steps:
       - name: Check out the codebase.
