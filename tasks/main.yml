@@ -76,7 +76,9 @@
     url: '{{ copr_reposync_gpg_url }}'
     dest: '{{ copr_reposync_repo_path }}/'
     mode: 0644
-  when: copr_reposync_gpg | bool
+  when:
+    - copr_reposync_gpg | bool
+    - copr_reposync_repos | difference(copr_reposync_remove_repos) | list | length > 0
 
 - name: Generate repo files for COPR mirror repositories
   become: True
@@ -85,6 +87,10 @@
     src: mirror.repo.j2
     dest: '{{ copr_reposync_repo_path }}/{{ copr_reposync_name | replace("/", "-") }}-{{ item }}.repo'
     mode: 0644
-  when: copr_reposync_repofile | bool
+  when:
+    - copr_reposync_repofile | bool
+    - copr_reposync_repos | difference(copr_reposync_remove_repos) | list | length > 0
   # get list of unique distributions from `copr_reposync_repos`
-  with_items: '{{ lookup("template", "lookup/distributions.j2", convert_data=false) | from_yaml }}'
+  loop: '{{ lookup("template", "lookup/distributions.j2", convert_data=false) | from_yaml }}'
+  loop_control:
+    label: '{{ copr_reposync_repo_path }}/{{ copr_reposync_name | replace("/", "-") }}-{{ item }}.repo'
