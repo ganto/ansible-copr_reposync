@@ -2,17 +2,9 @@
 # Copyright (C) 2020 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
 # SPDX-License-Identifier: Apache-2.0
 
-- name: '{{ copr_reposync_include_repo }} - Define systemd timer'
-  file:
-    path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.timer'
-    src: '{{ copr_reposync_service_name }}@.timer'
-    state: link
-  register: copr_reposync_register_timer
-
 - name: '{{ copr_reposync_include_repo }} - Enable systemd timer'
   systemd:
     name: '{{ copr_reposync_fact_unit }}.timer'
     state: started
     enabled: yes
-    daemon_reload: "{{ copr_reposync_register_timer is changed }}"
   when: (ansible_service_mgr | default('systemd')) == 'systemd'
