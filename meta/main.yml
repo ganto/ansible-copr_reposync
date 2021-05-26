@@ -3,6 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 galaxy_info:
+  namespace: ganto
   role_name: copr_reposync
   description: Setup COPR repository mirror
   author: Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
