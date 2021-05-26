@@ -23,17 +23,6 @@
     group: root
   register: copr_reposync_register_service
 
-- name: '{{ copr_reposync_include_repo }} - Define systemd service'
-  file:
-    path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service'
-    src: '{{ copr_reposync_service_name }}@.service'
-    state: link
-
-- name: '{{ copr_reposync_include_repo }} - Reload systemd'
-  systemd:
-    daemon_reload: '{{ copr_reposync_register_service is changed }}'
-  when: (ansible_service_mgr | default('systemd')) == 'systemd'
-
 - name: '{{ copr_reposync_include_repo }} - Execute systemd service'
   systemd:
     name: '{{ copr_reposync_fact_unit }}'
