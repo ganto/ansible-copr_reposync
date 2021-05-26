@@ -32,12 +32,6 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install yamllint ansible-lint[community]
 
-      - name: Add checkout to Ansible role path.
-        run: |
-          mkdir -p ~/.ansible/roles
-          ln -s $(pwd) ~/.ansible/roles/
-        shell: bash
-
       - name: Lint code.
         run: |
           yamllint .
