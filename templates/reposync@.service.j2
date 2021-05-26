@@ -4,6 +4,9 @@
  #}
 [Unit]
 Description=COPR package repository synchronization
+{% for _key, _value in copr_reposync_service_unit_config.items() %}
+{{ _key }}={{ _value }}
+{% endfor %}
 
 [Service]
 Type=oneshot
@@ -12,3 +15,6 @@ ExecStartPre=/bin/echo /usr/bin/reposync --repofrompath ${REPOSYNC_REPO},${REPOS
 ExecStart=/usr/bin/reposync --repofrompath ${REPOSYNC_REPO},${REPOSYNC_URL} --repo ${REPOSYNC_REPO} --download-path ${REPOSYNC_PATH}
 ExecStartPost=/bin/echo /usr/bin/createrepo_c --update ${REPOSYNC_PATH}/${REPOSYNC_REPO}
 ExecStartPost=/usr/bin/createrepo_c --update ${REPOSYNC_PATH}/${REPOSYNC_REPO}
+{% for _key, _value in copr_reposync_service_config.items() %}
+{{ _key }}={{ _value }}
+{% endfor %}

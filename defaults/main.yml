@@ -71,6 +71,15 @@ copr_reposync_packages:
 # Service name for reposync systemd units
 copr_reposync_service_name: reposync
 
+# systemd [Unit] directives for the reposync service unit
+copr_reposync_service_unit_config:
+  'StartLimitBurst': 5
+  'StartLimitIntervalSec': '120s'
+
+# systemd [Service] directives for the reposync service unit
+copr_reposync_service_config:
+  'Nice': 19
+
 # Each role execution will trigger the synchronization of the package repository
 # mirrors. By default the package repositories are only synchronized on
 # configuration change or via systemd timer.
