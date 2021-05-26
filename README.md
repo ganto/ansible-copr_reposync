@@ -91,5 +91,7 @@ Sun 2020-02-23 06:00:00 UTC  5h 31min left Sun 2020-02-23 00:00:07 UTC  28min ag
 
 ## Author Information
 
+[Changelog](CHANGELOG.md)
+
 The [ganto.copr_reposync](https://galaxy.ansible.com/ganto/copr_reposync) role was written and is maintained by:
 - [Reto Gantenbein](https://linuxmonk.ch/) | [e-mail](mailto:reto.gantenbein@linuxmonk.ch) | [GitHub](https://github.com/ganto)
