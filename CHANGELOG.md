@@ -7,6 +7,12 @@ and [human-readable changelog](https://keepachangelog.com/).
 
 The current role maintainer is [ganto](https://github.com/ganto).
 
+## [master](https://github.com/ganto/ansible-copr_reposync/release/tag/1.0.0...master) - _unreleased_
+
+### Changed
+
+- Update defaults to Fedora 34/35
+
 
 ## [1.0.0](https://github.com/ganto/ansible-copr_reposync/releases/tag/1.0.0) - 2021.05.26
 
