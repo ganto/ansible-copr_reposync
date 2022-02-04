@@ -46,8 +46,8 @@ jobs:
       matrix:
         distro:
           - 'centos8'
-          - 'fedora33'
           - 'fedora34'
+          - 'fedora35'
 
     steps:
       - name: Check out the codebase.
