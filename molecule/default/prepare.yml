@@ -9,19 +9,19 @@
   tasks:
     # Install apache2 to server repository mirror
     - name: Install Apache2 httpd server
-      package:
+      ansible.builtin.package:
         name: httpd
         state: present
 
     # Work-around flanky private tmp mount
     - name: Remove PrivateTmp configuration in httpd service
-      lineinfile:
+      ansible.builtin.lineinfile:
         path: /usr/lib/systemd/system/httpd.service
         line: 'PrivateTmp=true'
         state: absent
 
     - name: Enable and start httpd service
-      systemd:
+      ansible.builtin.systemd:
         # Reload modified httpd.service
         daemon_reload: true
         enabled: true

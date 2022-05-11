@@ -3,11 +3,11 @@
 # SPDX-License-Identifier: Apache-2.0
 
 - name: '{{ copr_reposync_include_repo }} - Set systemd unit name fact'
-  set_fact:
+  ansible.builtin.set_fact:
     copr_reposync_fact_unit: '{{ copr_reposync_service_name }}@{{ copr_reposync_name.replace("/", "-") }}-{{ copr_reposync_include_repo }}'
 
 - name: '{{ copr_reposync_include_repo }} - Create systemd service drop-in directory'
-  file:
+  ansible.builtin.file:
      path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service.d'
      state: directory
      mode: 0755
@@ -15,7 +15,7 @@
      group: root
 
 - name: '{{ copr_reposync_include_repo }} - Create systemd service configuration'
-  template:
+  ansible.builtin.template:
     src: override.conf.j2
     dest: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service.d/override.conf'
     mode: 0644
@@ -24,7 +24,7 @@
   register: copr_reposync_register_service
 
 - name: '{{ copr_reposync_include_repo }} - Execute systemd service'
-  systemd:
+  ansible.builtin.systemd:
     name: '{{ copr_reposync_fact_unit }}'
     state: started
     enabled: no
@@ -34,5 +34,5 @@
     - (ansible_service_mgr | default('systemd')) == 'systemd'
 
 - name: '{{ copr_reposync_include_repo }} - Include tasks to setup systemd timer'
-  include_tasks: reposync_timer.yml
+  ansible.builtin.include_tasks: reposync_timer.yml
   when: copr_reposync_timer | bool

@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 - name: "Verify repository list for COPR '{{ copr_reposync_name }}'"
-  assert:
+  ansible.builtin.assert:
     fail_msg: 'No repositories found to synchronize. Verify your distribution, release and architecture definitions.'
     success_msg:
       - '{{ ("Setup repository sync for: " + (copr_reposync_repos | join(", ")))
@@ -14,25 +14,25 @@
           (copr_reposync_remove_repos | length > 0)
 
 - name: Install required packages
-  package:
+  ansible.builtin.package:
     name: "{{ copr_reposync_packages }}"
     state: present
 
 - name: Reposync user account
-  user:
+  ansible.builtin.user:
     name: "{{ copr_reposync_owner }}"
     home: "{{ copr_reposync_path.rstrip('/') }}"
     system: yes
     shell: /sbin/nologin
 
 - name: Local path to store reposync mirrors
-  file:
+  ansible.builtin.file:
     path: '{{ copr_reposync_path }}'
     state: directory
     mode: 0755
 
 - name: Repository directory and permissions
-  file:
+  ansible.builtin.file:
     path: '{{ copr_reposync_repo_path }}'
     state: directory
     mode: 0755
@@ -40,7 +40,7 @@
     group: '{{ copr_reposync_owner }}'
 
 - name: Reposync systemd service unit
-  template:
+  ansible.builtin.template:
     src: reposync@.service.j2
     dest: /etc/systemd/system/reposync@.service
     mode: 0644
@@ -48,7 +48,7 @@
     group: root
 
 - name: Reposync systemd timer unit
-  template:
+  ansible.builtin.template:
     src: reposync@.timer.j2
     dest: /etc/systemd/system/reposync@.timer
     mode: 0644
@@ -72,7 +72,7 @@
   become: True
   become_user: '{{ copr_reposync_owner }}'
   ignore_errors: '{{ ansible_check_mode }}'
-  get_url:
+  ansible.builtin.get_url:
     url: '{{ copr_reposync_gpg_url }}'
     dest: '{{ copr_reposync_repo_path }}/'
     mode: 0644
@@ -83,7 +83,7 @@
 - name: Generate repo files for COPR mirror repositories
   become: True
   become_user: '{{ copr_reposync_owner }}'
-  template:
+  ansible.builtin.template:
     src: mirror.repo.j2
     dest: '{{ copr_reposync_repo_path }}/{{ copr_reposync_name | replace("/", "-") }}-{{ item }}.repo'
     mode: 0644
