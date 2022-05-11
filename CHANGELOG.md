@@ -11,6 +11,7 @@ The current role maintainer is [ganto](https://github.com/ganto).
 
 ### Changed
 
+- Use fully qualified collection name (FQCN) for Ansible modules
 - Update defaults to Fedora 34/35
 
 
