@@ -7,7 +7,7 @@
 
   tasks:
     - name: Check GPG public key and repository file
-      stat:
+      ansible.builtin.stat:
         path: '{{ item }}'
       loop:
         - '/var/www/html/ganto/jo/pubkey.gpg'
@@ -16,7 +16,7 @@
       register: verify_repo_files
 
     - name: GPG public key and repository file must exist
-      assert:
+      ansible.builtin.assert:
         quiet: true
         that: '{{ item.stat.exists }}'
       loop: '{{ verify_repo_files.results }}'
@@ -24,12 +24,12 @@
         label: '{{ item.item }}'
 
     - name: Download repository file to local yum repos path
-      get_url:
+      ansible.builtin.get_url:
         url: 'http://localhost/ganto/jo/ganto-jo-{{ "fedora" if ansible_distribution == "Fedora"
                                                              else "epel" }}.repo'
         dest: '/etc/yum.repos.d/_copr-mirror_ganto-jo.repo'
 
     - name: Install package from COPR repository mirror
-      package:
+      ansible.builtin.package:
         name: jo
         state: present

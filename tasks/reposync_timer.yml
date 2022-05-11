@@ -3,7 +3,7 @@
 # SPDX-License-Identifier: Apache-2.0
 
 - name: '{{ copr_reposync_include_repo }} - Enable systemd timer'
-  systemd:
+  ansible.builtin.systemd:
     name: '{{ copr_reposync_fact_unit }}.timer'
     state: started
     enabled: yes
