@@ -51,9 +51,9 @@ jobs:
     strategy:
       matrix:
         distro:
-          - 'centos8'
-          - 'fedora34'
+          - 'rockylinux8'
           - 'fedora35'
+          - 'fedora36'
 
     steps:
       - name: Check out the codebase.
