@@ -42,7 +42,7 @@ jobs:
       - name: Lint code.
         run: |
           yamllint .
-          ansible-lint
+          ansible-lint .
 
   molecule:
     name: Molecule
@@ -51,9 +51,9 @@ jobs:
     strategy:
       matrix:
         distro:
-          - 'centos8'
-          - 'fedora34'
+          - 'rockylinux8'
           - 'fedora35'
+          - 'fedora36'
 
     steps:
       - name: Check out the codebase.

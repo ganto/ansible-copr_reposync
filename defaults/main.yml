@@ -33,11 +33,11 @@ copr_reposync_distributions:
 # which builds are enabled in the COPR configuration.
 copr_reposync_releases:
   fedora:
-    - 34
     - 35
+    - 36
   epel:
-    - 7
     - 8
+    - 9
 
 # Dictionary of distributions with their supported architectures used for
 # generating the list of repositories to be mirrored. Must contain architectures
