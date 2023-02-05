@@ -53,8 +53,8 @@ jobs:
         distro:
           - 'rockylinux8'
           - 'rockylinux9'
-          - 'fedora35'
           - 'fedora36'
+          - 'fedora37'
 
     steps:
       - name: Check out the codebase.
