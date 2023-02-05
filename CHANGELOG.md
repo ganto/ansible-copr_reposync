@@ -12,7 +12,7 @@ The current role maintainer is [ganto](https://github.com/ganto).
 ### Changed
 
 - Use fully qualified collection name (FQCN) for Ansible modules
-- Update defaults to Fedora 35/36 and EPEL 9
+- Update defaults to Fedora 36/37 and EPEL 9
 
 
 ## [1.0.0](https://github.com/ganto/ansible-copr_reposync/releases/tag/1.0.0) - 2021.05.26
