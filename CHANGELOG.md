@@ -9,6 +9,8 @@ The current role maintainer is [ganto](https://github.com/ganto).
 
 ## [master](https://github.com/ganto/ansible-copr_reposync/release/tag/1.0.0...master) - _unreleased_
 
+## [1.1.0](https://github.com/ganto/ansible-copr_reposync/releases/tag/1.1.0) - 2023.02.05
+
 ### Changed
 
 - Use fully qualified collection name (FQCN) for Ansible modules
