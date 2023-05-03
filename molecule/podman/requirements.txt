@@ -1,2 +1,3 @@
 ansible
-molecule[podman]
+molecule
+molecule-plugins[podman]
