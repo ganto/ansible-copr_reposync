@@ -8,11 +8,11 @@
 
 - name: '{{ copr_reposync_include_repo }} - Create systemd service drop-in directory'
   ansible.builtin.file:
-     path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service.d'
-     state: directory
-     mode: 0755
-     owner: root
-     group: root
+    path: '/etc/systemd/system/{{ copr_reposync_fact_unit }}.service.d'
+    state: directory
+    mode: 0755
+    owner: root
+    group: root
 
 - name: '{{ copr_reposync_include_repo }} - Create systemd service configuration'
   ansible.builtin.template:
