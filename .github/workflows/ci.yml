@@ -56,8 +56,8 @@ jobs:
         distro:
           - 'rockylinux8'
           - 'rockylinux9'
-          - 'fedora38'
           - 'fedora39'
+          - 'fedora40'
 
     steps:
       - name: Check out the codebase.
