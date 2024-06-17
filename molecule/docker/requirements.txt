@@ -1,4 +1,4 @@
-ansible
+ansible-core==2.16.7
 docker
 molecule
 molecule-plugins[docker]

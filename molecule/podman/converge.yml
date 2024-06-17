@@ -13,9 +13,5 @@
     copr_reposync_distributions:
       - '{{ "fedora" if ansible_distribution == "Fedora" else "epel" }}'
 
-    copr_reposync_packages:
-      - '{{ ansible_pkg_mgr }}-utils'
-      - 'createrepo_c'
-
   roles:
     - role: ganto.copr_reposync
