@@ -29,13 +29,13 @@
   ansible.builtin.file:
     path: '{{ copr_reposync_path }}'
     state: directory
-    mode: 0755
+    mode: '0755'
 
 - name: Repository directory and permissions
   ansible.builtin.file:
     path: '{{ copr_reposync_repo_path }}'
     state: directory
-    mode: 0755
+    mode: '0755'
     owner: '{{ copr_reposync_owner }}'
     group: '{{ copr_reposync_owner }}'
 
@@ -43,7 +43,7 @@
   ansible.builtin.template:
     src: reposync@.service.j2
     dest: /etc/systemd/system/reposync@.service
-    mode: 0644
+    mode: '0644'
     owner: root
     group: root
 
@@ -51,7 +51,7 @@
   ansible.builtin.template:
     src: reposync@.timer.j2
     dest: /etc/systemd/system/reposync@.timer
-    mode: 0644
+    mode: '0644'
     owner: root
     group: root
   when: copr_reposync_timer | bool
@@ -75,7 +75,7 @@
   ansible.builtin.get_url:
     url: '{{ copr_reposync_gpg_url }}'
     dest: '{{ copr_reposync_repo_path }}/'
-    mode: 0644
+    mode: '0644'
   when:
     - copr_reposync_gpg | bool
     - copr_reposync_repos | difference(copr_reposync_remove_repos) | list | length > 0
@@ -86,7 +86,7 @@
   ansible.builtin.template:
     src: mirror.repo.j2
     dest: '{{ copr_reposync_repo_path }}/{{ copr_reposync_name | replace("/", "-") }}-{{ item }}.repo'
-    mode: 0644
+    mode: '0644'
   when:
     - copr_reposync_repofile | bool
     - copr_reposync_repos | difference(copr_reposync_remove_repos) | list | length > 0
