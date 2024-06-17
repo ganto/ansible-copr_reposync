@@ -28,7 +28,7 @@
         url: 'http://localhost/ganto/jo/ganto-jo-{{ "fedora" if ansible_distribution == "Fedora"
                                                              else "epel" }}.repo'
         dest: '/etc/yum.repos.d/_copr-mirror_ganto-jo.repo'
-        mode: 0644
+        mode: '0644'
 
     - name: Install package from COPR repository mirror
       ansible.builtin.package:
