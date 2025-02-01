@@ -54,7 +54,6 @@ jobs:
     strategy:
       matrix:
         distro:
-          - 'rockylinux8'
           - 'rockylinux9'
           - 'fedora40'
           - 'fedora41'
