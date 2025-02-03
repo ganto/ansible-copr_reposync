@@ -33,7 +33,7 @@ jobs:
       - name: Install test dependencies.
         run: pip3 install yamllint ansible-lint
 
-      - name: Install Ansible collections
+      - name: Install Ansible collections.
         run: ansible-galaxy install -r molecule/docker/collections.yml
 
       - name: Add checkout to Ansible role path.

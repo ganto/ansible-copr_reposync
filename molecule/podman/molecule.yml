@@ -1,21 +1,21 @@
 ---
-# Copyright (C) 2021 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
+# Copyright (C) 2021-2025 Reto Gantenbein <reto.gantenbein@linuxmonk.ch>
 # SPDX-License-Identifier: Apache-2.0
 
 dependency:
   name: galaxy
-  options:
-    requirements-file: collections.yml
+  enabled: False
 driver:
   name: podman
 platforms:
   - name: instance
-    image: "geerlingguy/docker-${MOLECULE_DISTRO:-rockylinux8}-ansible:latest"
-    command: ${MOLECULE_DOCKER_COMMAND:-""}
-    volumes:
-      - /sys/fs/cgroup:/sys/fs/cgroup:ro
-    privileged: True
+    image: "docker.io/geerlingguy/docker-${MOLECULE_DISTRO:-rockylinux9}-ansible:latest"
     pre_build_image: True
+    command: ${MOLECULE_DOCKER_COMMAND:-""}
+    privileged: True
+    cgroupns_mode: host
+    volumes:
+      - /sys/fs/cgroup:/sys/fs/cgroup:rw
 provisioner:
   name: ansible
   log: True
