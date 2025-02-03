@@ -1,6 +1,6 @@
 # Ansible Role: ganto.copr_reposync
 
-[![CI](https://github.com/ganto/ansible-copr_reposync/workflows/CI/badge.svg?event=push)](https://github.com/ganto/ansible-copr_reposync/actions?query=workflow%3ACI)
+[![CI](https://github.com/ganto/ansible-copr_reposync/actions/workflows/ci.yml/badge.svg)](https://github.com/ganto/ansible-copr_reposync/actions/workflows/ci.yml)
 [![Ansible Galaxy](http://img.shields.io/badge/ansible--galaxy-ganto.copr__reposync-blue.svg?style=flat&logo=ansible)](https://galaxy.ansible.com/ganto/copr_reposync)
 
 Setup a local package mirror of a [COPR](https://copr.fedorainfracloud.org/coprs/) repository which is able to provide packages that will be deleted by COPR over time. It can then be served to other machines with Web server.
