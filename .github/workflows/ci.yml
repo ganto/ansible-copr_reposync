@@ -31,7 +31,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install test dependencies.
-        run: pip3 install yamllint ansible-lint
+        run: pip3 install yamllint ansible-lint mdformat
 
       - name: Install Ansible collections.
         run: ansible-galaxy install -r molecule/docker/collections.yml
@@ -46,6 +46,7 @@ jobs:
         run: |
           yamllint .
           ansible-lint .
+          mdformat --check *.md
 
   molecule:
     name: Molecule
