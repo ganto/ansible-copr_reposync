@@ -36,12 +36,6 @@ jobs:
       - name: Install Ansible collections.
         run: ansible-galaxy install -r molecule/docker/collections.yml
 
-      - name: Add checkout to Ansible role path.
-        run: |
-           mkdir -p ~/.ansible/roles
-           ln -s $(pwd) ~/.ansible/roles/
-        shell: bash
-
       - name: Lint code.
         run: |
           yamllint .
