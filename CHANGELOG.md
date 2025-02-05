@@ -8,12 +8,16 @@ project will be documented in this file.
 
 The current role maintainer is [ganto](https://github.com/ganto).
 
-## [master](https://github.com/ganto/ansible-copr_reposync/release/tag/1.0.0...master) - _unreleased_
+## [master](https://github.com/ganto/ansible-copr_reposync/compare/1.2.0...master) - _unreleased_
+
+## [1.2.0](https://github.com/ganto/ansible-copr_reposync/compare/1.1.0...1.2.0) - 2025.02.05
+
+### Changed
 
 - Update defaults to Fedora 40/41
 - Replace `become` statements with file ownership adjustments
 
-## [1.1.0](https://github.com/ganto/ansible-copr_reposync/releases/tag/1.1.0) - 2023.02.05
+## [1.1.0](https://github.com/ganto/ansible-copr_reposync/compare/1.0.0...1.1.0) - 2023.02.05
 
 ### Changed
 
