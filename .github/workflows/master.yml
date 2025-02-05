@@ -5,11 +5,16 @@
 # See: https://github.com/marketplace/actions/publish-ansible-role-to-galaxy
 # See: https://github.com/ansible/galaxy/issues/46
 
-name: Release
-'on':
+name: Master
+on:
   push:
+    branches:
+      - master
     tags:
       - '*'
+
+permissions:
+  contents: read
 
 defaults:
   run:
@@ -17,8 +22,8 @@ defaults:
 
 jobs:
 
-  release:
-    name: Release
+  update-galaxy:
+    name: Update-Galaxy
     runs-on: ubuntu-latest
     steps:
       - name: Check out the codebase.
@@ -32,7 +37,7 @@ jobs:
           python-version: '3.x'
 
       - name: Install Ansible.
-        run: pip3 install ansible-base
+        run: pip3 install ansible-core
 
       - name: Trigger a new import on Galaxy.
         run: >
