@@ -50,8 +50,8 @@ jobs:
       matrix:
         distro:
           - 'rockylinux9'
-          - 'fedora40'
           - 'fedora41'
+          - 'fedora42'
 
     steps:
       - name: Check out the codebase.
