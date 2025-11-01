@@ -28,7 +28,8 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v6
         with:
-          python-version: '3.x'
+          # stay with Python 3.13 until ansible-core 2.20 is released
+          python-version: '3.13'
 
       - name: Install test dependencies.
         run: pip3 install yamllint ansible-lint mdformat
@@ -62,7 +63,8 @@ jobs:
       - name: Set up Python 3.
         uses: actions/setup-python@v6
         with:
-          python-version: '3.x'
+          # stay with Python 3.13 until ansible-core 2.20 is released
+          python-version: '3.13'
 
       - name: Install test dependencies.
         run: pip3 install -r molecule/docker/requirements.txt
