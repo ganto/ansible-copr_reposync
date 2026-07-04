@@ -36,8 +36,8 @@ copr_reposync_releases:
     - 43
     - 44
   epel:
-    - 8
     - 9
+    - 10
 
 # Dictionary of distributions with their supported architectures used for
 # generating the list of repositories to be mirrored. Must contain architectures
