@@ -53,9 +53,9 @@ jobs:
     strategy:
       matrix:
         distro:
-          - 'rockylinux9'
-          - 'fedora41'
+          - 'rockylinux10'
           - 'fedora42'
+          - 'fedora43'
 
     steps:
       - name: Check out the codebase.
