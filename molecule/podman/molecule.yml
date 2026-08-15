@@ -13,7 +13,6 @@ platforms:
     pre_build_image: True
     command: ${MOLECULE_DOCKER_COMMAND:-""}
     privileged: True
-    cgroupns_mode: host
     volumes:
       - /sys/fs/cgroup:/sys/fs/cgroup:rw
 provisioner:
