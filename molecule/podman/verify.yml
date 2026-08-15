@@ -11,7 +11,7 @@
         path: '{{ item }}'
       loop:
         - '/var/www/html/ganto/jo/pubkey.gpg'
-        - '/var/www/html/ganto/jo/ganto-jo-{{ "fedora" if ansible_distribution == "Fedora"
+        - '/var/www/html/ganto/jo/ganto-jo-{{ "fedora" if ansible_facts["distribution"] == "Fedora"
                                                        else "epel" }}.repo'
       register: verify_repo_files
 
@@ -25,7 +25,7 @@
 
     - name: Download repository file to local yum repos path
       ansible.builtin.get_url:
-        url: 'http://localhost/ganto/jo/ganto-jo-{{ "fedora" if ansible_distribution == "Fedora"
+        url: 'http://localhost/ganto/jo/ganto-jo-{{ "fedora" if ansible_facts["distribution"] == "Fedora"
                                                              else "epel" }}.repo'
         dest: '/etc/yum.repos.d/_copr-mirror_ganto-jo.repo'
         mode: '0644'
