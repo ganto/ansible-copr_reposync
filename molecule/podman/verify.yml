@@ -18,7 +18,7 @@
     - name: GPG public key and repository file must exist
       ansible.builtin.assert:
         quiet: true
-        that: '{{ item.stat.exists }}'
+        that: item.stat.exists
       loop: '{{ verify_repo_files.results }}'
       loop_control:
         label: '{{ item.item }}'
