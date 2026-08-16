@@ -10,6 +10,10 @@ The current role maintainer is [ganto](https://github.com/ganto).
 
 ## [master](https://github.com/ganto/ansible-copr_reposync/compare/1.2.0...master) - _unreleased_
 
+### Fixed
+
+- Resolve ansible-core deprecation warnings in molecule verify playbook
+
 ## [1.2.0](https://github.com/ganto/ansible-copr_reposync/compare/1.1.0...1.2.0) - 2025.02.05
 
 ### Changed
